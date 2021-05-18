@@ -1,45 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WheelHealth : MonoBehaviour
 {
     private WheelFrictionCurve _sidewaysFriction;
     private WheelCollider wheelCollider;
 
-    // Tekerlek saðlýðý
+    // Tekerlek saï¿½lï¿½ï¿½ï¿½
     [SerializeField] float wheelHealth = 100;
+    [SerializeField] float engineHealth = 100;
+    [SerializeField] float turboHealth = 100;
+    [SerializeField] float transmissionHealth = 100;
+    [SerializeField] float fuelHealth = 100;
+
+    public Toggle wheelRepairToggle;
+    public Toggle engineRepairToggle;
+    public Toggle turboRepairToggle;
+    public Toggle transmissionRepairToggle;
+    public Toggle fuelRepairToggle;
+    public Button repairButton;
 
     private void Start()
     {
         wheelCollider = gameObject.GetComponent<WheelCollider>();
     }
 
-    // Tekerlek aþýnmasýný hesaplýyor.
+    float CurrentSpeed()
+    {
+        return 2 * Mathf.PI * wheelCollider.radius * wheelCollider.rpm * 60 / 10000;
+    }
+
+    // Tekerlek aï¿½ï¿½nmasï¿½nï¿½ hesaplï¿½yor.
     public void WheelsHealthCalculate()
     {
-        float currentSpeed = 2 * Mathf.PI * wheelCollider.radius * wheelCollider.rpm * 60 / 10000;
         /*
-         * Anlýk hýzýn, zemin katsayýna oranýnýn binde biri tekerlek saðlýðýna etki ediyor.
-         * Buzlu zeminin extremumValue'su daha yüksek olduðundan anlýk hýzla çarpmak yerine anlýk hýza bölerek,
-         * Buzlu zeminde daha az aþýnma olurken, asfalt zeminde daha fazla oluyor.
-         * Binde birini alarak tekerlek aþýnmasýnýn kabul edilebilir seviyelerde olmasýný saðladýk.
+         * Anlï¿½k hï¿½zï¿½n, zemin katsayï¿½na oranï¿½nï¿½n binde biri tekerlek saï¿½lï¿½ï¿½ï¿½na etki ediyor.
+         * Buzlu zeminin extremumValue'su daha yï¿½ksek olduï¿½undan anlï¿½k hï¿½zla ï¿½arpmak yerine anlï¿½k hï¿½za bï¿½lerek,
+         * Buzlu zeminde daha az aï¿½ï¿½nma olurken, asfalt zeminde daha fazla oluyor.
+         * Binde birini alarak tekerlek aï¿½ï¿½nmasï¿½nï¿½n kabul edilebilir seviyelerde olmasï¿½nï¿½ saï¿½ladï¿½k.
          */
-        float wheelErosion = (currentSpeed / wheelCollider.sidewaysFriction.extremumValue) / 1000;
+        float wheelErosion = (CarEngine.currentSpeed / wheelCollider.sidewaysFriction.extremumValue) / 1000;
 
         wheelHealth -= wheelErosion;
 
         /*
-         * Araç saða dönüyorsa aracýn solundaki tekerler wheelEresion'un yarýsýnýn,
-         * Tekerlerin dönüþ açýsýnýn %10'uyla çarpýmý kadar daha aþýnýyor.
-         * Ayný durum tam tersi için de geçerli.
+         * Araï¿½ saï¿½a dï¿½nï¿½yorsa aracï¿½n solundaki tekerler wheelEresion'un yarï¿½sï¿½nï¿½n,
+         * Tekerlerin dï¿½nï¿½ï¿½ aï¿½ï¿½sï¿½nï¿½n %10'uyla ï¿½arpï¿½mï¿½ kadar daha aï¿½ï¿½nï¿½yor.
+         * Aynï¿½ durum tam tersi iï¿½in de geï¿½erli.
          */
         if (wheelCollider.steerAngle > 0)
         {
             if (gameObject.name == "tireFrontL" || gameObject.name == "tireBackL")
             {
                 wheelHealth -= wheelErosion * (wheelCollider.steerAngle * 0.05f);
-                Debug.Log(wheelHealth);
             }
         }
         else if (wheelCollider.steerAngle < 0)
@@ -47,8 +62,79 @@ public class WheelHealth : MonoBehaviour
             if (gameObject.name == "tireFrontR" || gameObject.name == "tireBackR")
             {
                 wheelHealth -= wheelErosion * (-1 * wheelCollider.steerAngle * 0.05f);
-                Debug.Log(wheelHealth);
             }
+        }
+    }
+
+    public void EngineHealthCalculate()
+    {
+        float engineErosion = (CarEngine.currentSpeed / wheelCollider.sidewaysFriction.extremumValue) / 1000;
+
+        engineHealth -= engineErosion;
+        CarComponentErosion(engineHealth);
+    }
+
+    public void TurboHealthCalculate()
+    {
+        float turboErosion = (CarEngine.currentSpeed / wheelCollider.sidewaysFriction.extremumValue) / 1000;
+
+        turboHealth -= turboErosion;
+        CarComponentErosion(turboHealth);
+    }
+
+    public void TransmissionCalculate()
+    {
+        float transmissionErosion = (CarEngine.currentSpeed / wheelCollider.sidewaysFriction.extremumValue) / 1000;
+
+        transmissionHealth -= transmissionErosion;
+        CarComponentErosion(transmissionHealth);
+    }
+
+    public void FuelHealthCalculator()
+    {
+        float fuelErosion = (CarEngine.currentSpeed / wheelCollider.sidewaysFriction.extremumValue) / 1000;
+
+        fuelHealth -= fuelErosion;
+        CarComponentErosion(fuelHealth);
+    }
+
+    void CarComponentErosion(float componentName)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit))
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Icy"))
+            {
+                componentName -= 15;
+            }
+            else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Asphalt"))
+            {
+                componentName -= CarEngine.currentSpeed / 2000;
+            }
+        }
+    }
+
+    public void FixCarComponents()
+    {
+        if (wheelRepairToggle.isOn == true)
+        {
+            wheelHealth = 100;
+        }
+        if (engineRepairToggle.isOn == true)
+        {
+            engineHealth = 100;
+        }
+        if (turboRepairToggle.isOn == true)
+        {
+            turboHealth = 100;
+        }
+        if (transmissionRepairToggle.isOn == true)
+        {
+            transmissionHealth = 100;
+        }
+        if (fuelRepairToggle.isOn == true)
+        {
+            fuelHealth = 100;
         }
     }
 }

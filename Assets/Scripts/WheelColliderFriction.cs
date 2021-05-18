@@ -30,7 +30,12 @@ public class WheelColliderFriction : MonoBehaviour
         pilotTypeController.CalculatePilotSpecs();
         groundController.SetDropdownValue();
         wheelTypeController.SetDropdownValue();
+
         wheelHealth.WheelsHealthCalculate(); // Tekerlek aşınmasını hesaplayan fonksiyon
+        wheelHealth.EngineHealthCalculate();
+        wheelHealth.TurboHealthCalculate();
+        wheelHealth.TransmissionCalculate();
+        wheelHealth.FuelHealthCalculator();
     }
 
     // Zemin özellikleri, sürtünme katsayıları vs.

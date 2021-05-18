@@ -5,9 +5,9 @@ using UnityEngine;
 //struct pilotSpecs
 //{
 //    /*
-//     * Zemin sürtünme katsayýlarý için deðiþkenler.
-//     * Extremum noktasý sürtünmenin maksimum olduðu noktadýr.
-//     * Asymptote noktasý sürtünmenin dengelendiði noktadýr.
+//     * Zemin sï¿½rtï¿½nme katsayï¿½larï¿½ iï¿½in deï¿½iï¿½kenler.
+//     * Extremum noktasï¿½ sï¿½rtï¿½nmenin maksimum olduï¿½u noktadï¿½r.
+//     * Asymptote noktasï¿½ sï¿½rtï¿½nmenin dengelendiï¿½i noktadï¿½r.
 //     * https://docs.unity3d.com/Manual/class-WheelCollider.html
 //     */
 //    public float extremumSlip;
@@ -15,9 +15,9 @@ using UnityEngine;
 //    public float asymptoteSlip;
 //    public float asymptoteValue;
 //    /*
-//     * stiffness, yukarýdaki deðiþkenlerin etkisinin çarpanýdýr. 
-//     * Default olarak 1'dir. 2 olarak deðiþtirilirse yukarýdaki deðerlerin etkisi 2 katýna çýkar. 
-//     * Genellikle runtime sýrasýnda deðiþtirilir.
+//     * stiffness, yukarï¿½daki deï¿½iï¿½kenlerin etkisinin ï¿½arpanï¿½dï¿½r. 
+//     * Default olarak 1'dir. 2 olarak deï¿½iï¿½tirilirse yukarï¿½daki deï¿½erlerin etkisi 2 katï¿½na ï¿½ï¿½kar. 
+//     * Genellikle runtime sï¿½rasï¿½nda deï¿½iï¿½tirilir.
 //     */
 //    public float stiffness;
 
@@ -45,14 +45,14 @@ public class PilotController : MonoBehaviour
         ps = new pilotSpecs(10f, 10f, 10f, 10f, 10f);
     }
 
-    // Pilotun özelliklerini araç özelliklerine çevir
+    // Pilotun ï¿½zelliklerini araï¿½ Ã¶zelliklerine ï¿½evir
     public void CalculatePilotSpecs()
     {
-        float newExtremumSlip = ps.extremumSlip * 0.002f; // 0-1 arasý
-        float newExtremumValue = ps.extremumValue * 0.002f; // 0-1 arasý
-        float newAsymtoteSlip = ps.asymptoteSlip * 0.002f; // 0-1 arasý
-        float newAsymtoteValue = ps.asymptoteValue * 0.002f; // 0.75 sabit þimdilik
-        float newStiffness = ps.stiffness * 0.002f; // 0-1 arasý
+        float newExtremumSlip = ps.extremumSlip * 0.002f; // 0-1 arasÄ±
+        float newExtremumValue = ps.extremumValue * 0.002f; // 0-1 arasï¿½
+        float newAsymtoteSlip = ps.asymptoteSlip * 0.002f; // 0-1 arasï¿½
+        float newAsymtoteValue = ps.asymptoteValue * 0.002f; // 0.75 sabit ï¿½imdilik
+        float newStiffness = ps.stiffness * 0.002f; // 0-1 arasï¿½
 
         _sidewaysFriction.extremumSlip = wheelCollider.sidewaysFriction.extremumSlip + newExtremumSlip;
         _sidewaysFriction.extremumValue = wheelCollider.sidewaysFriction.extremumValue + newExtremumValue;
