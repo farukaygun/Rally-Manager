@@ -117,7 +117,7 @@ public class CarEngine : MonoBehaviour
          * drivingTypeBrakeDistance ve drivingTypeBrakeDistance/2 arasında yol dışındaki gizli küplere raycast ışını çarpıyorsa
          * ve aracın hızı drivingTypeSpeedLimit'den fazlaysa fren yap.
          * değilse fren yapma
-         */  
+         */ 
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, drivingTypeBrakeDistance, layerMask)
             && !Physics.Raycast(transform.position,transform.forward, out hit, drivingTypeBrakeDistance/2, layerMask) == false 
