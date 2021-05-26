@@ -5,13 +5,13 @@ using System.Collections.Generic;
 public class Path : MonoBehaviour
 {
 
-    public Color lineColor = Color.red; // Rengi aþaðýda atamazsak gizmos çizilmiyor.
+    public Color lineColor = Color.red; // Rengi aï¿½aï¿½ï¿½da atamazsak gizmos ï¿½izilmiyor.
 
     private List<Transform> nodes = new List<Transform>();
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.red; // Rengi burada atamazsak gizmos'u çizmiyor.
+        Gizmos.color = Color.red; // Rengi burada atamazsak gizmos'u ï¿½izmiyor.
 
         Transform[] pathTransforms = GetComponentsInChildren<Transform>();
         nodes = new List<Transform>();

@@ -5,81 +5,81 @@ using UnityEngine.UI;
 
 struct pilotSpecs
 {
-    /*
-     * Zemin sürtünme katsayýlarý için deðiþkenler.
-     * Extremum noktasý sürtünmenin maksimum olduðu noktadýr.
-     * Asymptote noktasý sürtünmenin dengelendiði noktadýr.
-     * https://docs.unity3d.com/Manual/class-WheelCollider.html
-     */
-    public float extremumSlip;
-    public float extremumValue;
-    public float asymptoteSlip;
-    public float asymptoteValue;
-    /*
-     * stiffness, yukarýdaki deðiþkenlerin etkisinin çarpanýdýr. 
-     * Default olarak 1'dir. 2 olarak deðiþtirilirse yukarýdaki deðerlerin etkisi 2 katýna çýkar. 
-     * Genellikle runtime sýrasýnda deðiþtirilir.
-     */
-    public float stiffness;
+	/*
+	 * Zemin sï¿½rtï¿½nme katsayï¿½larï¿½ iï¿½in deï¿½iï¿½kenler.
+	 * Extremum noktasï¿½ sï¿½rtï¿½nmenin maksimum olduï¿½u noktadï¿½r.
+	 * Asymptote noktasï¿½ sï¿½rtï¿½nmenin dengelendiï¿½i noktadï¿½r.
+	 * https://docs.unity3d.com/Manual/class-WheelCollider.html
+	 */
+	public float extremumSlip;
+	public float extremumValue;
+	public float asymptoteSlip;
+	public float asymptoteValue;
+	/*
+	 * stiffness, yukarï¿½daki deï¿½iï¿½kenlerin etkisinin ï¿½arpanï¿½dï¿½r. 
+	 * Default olarak 1'dir. 2 olarak deï¿½iï¿½tirilirse yukarï¿½daki deï¿½erlerin etkisi 2 katï¿½na ï¿½ï¿½kar. 
+	 * Genellikle runtime sï¿½rasï¿½nda deï¿½iï¿½tirilir.
+	 */
+	public float stiffness;
 
-    // Constructor
-    public pilotSpecs(float extremumSlip, float extremumValue, float asymptoteSlip, float asymptoteValue, float stiffness)
-    {
-        this.extremumSlip = extremumSlip;
-        this.extremumValue = extremumValue;
-        this.asymptoteSlip = asymptoteSlip;
-        this.asymptoteValue = asymptoteValue;
-        this.stiffness = stiffness;
-    }
+	// Constructor
+	public pilotSpecs(float extremumSlip, float extremumValue, float asymptoteSlip, float asymptoteValue, float stiffness)
+	{
+		this.extremumSlip = extremumSlip;
+		this.extremumValue = extremumValue;
+		this.asymptoteSlip = asymptoteSlip;
+		this.asymptoteValue = asymptoteValue;
+		this.stiffness = stiffness;
+	}
 }
 
 public class PilotTypeController : MonoBehaviour
 {
-    public Dropdown pilotTypeDropdown;
+	public Dropdown pilotTypeDropdown;
 
-    private WheelFrictionCurve _sidewaysFriction;
-    private WheelCollider wheelCollider;
+	private WheelFrictionCurve _sidewaysFriction;
+	private WheelCollider wheelCollider;
 
-    pilotSpecs ps;
+	pilotSpecs ps;
 
-    void Start()
-    {
-        wheelCollider = gameObject.GetComponent<WheelCollider>();
-    }
+	void Start()
+	{
+		wheelCollider = gameObject.GetComponent<WheelCollider>();
+	}
 
-    // Pilotun özelliklerini araç özelliklerine çevir
-    public void CalculatePilotSpecs()
-    {
-        PilotType(pilotTypeDropdown.value);
+	// Pilotun ï¿½zelliklerini araï¿½ ï¿½zelliklerine ï¿½evir
+	public void CalculatePilotSpecs()
+	{
+		PilotType(pilotTypeDropdown.value);
 
-        float newExtremumSlip = ps.extremumSlip * 0.002f; // 0-1 arasý
-        float newExtremumValue = ps.extremumValue * 0.002f; // 0-1 arasý
-        float newAsymtoteSlip = ps.asymptoteSlip * 0.002f; // 0-1 arasý
-        float newAsymtoteValue = ps.asymptoteValue * 0.002f; // 0.75 sabit þimdilik
-        float newStiffness = ps.stiffness * 0.002f; // 0-1 arasý
+		float newExtremumSlip = ps.extremumSlip * 0.002f; // 0-1 arasï¿½
+		float newExtremumValue = ps.extremumValue * 0.002f; // 0-1 arasï¿½
+		float newAsymtoteSlip = ps.asymptoteSlip * 0.002f; // 0-1 arasï¿½
+		float newAsymtoteValue = ps.asymptoteValue * 0.002f; // 0.75 sabit ï¿½imdilik
+		float newStiffness = ps.stiffness * 0.002f; // 0-1 arasï¿½
 
-        _sidewaysFriction.extremumSlip = wheelCollider.sidewaysFriction.extremumSlip + newExtremumSlip;
-        _sidewaysFriction.extremumValue = wheelCollider.sidewaysFriction.extremumValue + newExtremumValue;
-        _sidewaysFriction.asymptoteSlip = wheelCollider.sidewaysFriction.asymptoteSlip + newAsymtoteSlip;
-        _sidewaysFriction.asymptoteValue = wheelCollider.sidewaysFriction.asymptoteValue + newAsymtoteValue;
-        _sidewaysFriction.stiffness = wheelCollider.sidewaysFriction.stiffness + newStiffness;
+		_sidewaysFriction.extremumSlip = wheelCollider.sidewaysFriction.extremumSlip + newExtremumSlip;
+		_sidewaysFriction.extremumValue = wheelCollider.sidewaysFriction.extremumValue + newExtremumValue;
+		_sidewaysFriction.asymptoteSlip = wheelCollider.sidewaysFriction.asymptoteSlip + newAsymtoteSlip;
+		_sidewaysFriction.asymptoteValue = wheelCollider.sidewaysFriction.asymptoteValue + newAsymtoteValue;
+		_sidewaysFriction.stiffness = wheelCollider.sidewaysFriction.stiffness + newStiffness;
 
-        wheelCollider.sidewaysFriction = _sidewaysFriction;
-    }
+		wheelCollider.sidewaysFriction = _sidewaysFriction;
+	}
 
-    void PilotType(int value)
-    {
-        if (value == 0)
-        {
-            ps = new pilotSpecs(5f, 5f, 5f, 5f, 5f);
-        }
-        else if (value == 1)
-        {
-            ps = new pilotSpecs(7f, 7f, 7f, 7f, 7f);
-        }
-        else if (value == 2)
-        {
-            ps = new pilotSpecs(10f, 10f, 10f, 10f, 10f);
-        }
-    }
+	void PilotType(int value)
+	{
+		if (value == 0)
+		{
+			ps = new pilotSpecs(5f, 5f, 5f, 5f, 5f);
+		}
+		else if (value == 1)
+		{
+			ps = new pilotSpecs(7f, 7f, 7f, 7f, 7f);
+		}
+		else if (value == 2)
+		{
+			ps = new pilotSpecs(10f, 10f, 10f, 10f, 10f);
+		}
+	}
 }

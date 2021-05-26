@@ -13,17 +13,14 @@ public class CarEngine : MonoBehaviour
     public WheelCollider wheelRR;
     
     public float maxMotorTorque = 80f;
-    [SerializeField] float maxBrakeTorque = 40f;
-    public static float currentSpeed;
+    public static float maxBrakeTorque = 50f;
+    [SerializeField] public static float currentSpeed;
     public float maxSpeed = 100f;
     public Vector3 centerOfMass;
     public Texture2D textureNormal;
     public Texture2D textureBreaking;
     public Renderer carRenderer;
     public bool isBraking = false;
-
-    [SerializeField] List<GameObject> brakeNodes = new List<GameObject>();
-
     List<Transform> nodes;
     int currentNode = 0;
 
@@ -48,7 +45,9 @@ public class CarEngine : MonoBehaviour
         ApplySteer(); // tekerlek sağ sol dönüş
         Drive(); // Sürmeye başla
         CheckWaypointDistance(); // Yolu kontrol et
-        CurveBraking(DrivingTypeController.drivingTypeBrakeDistance, DrivingTypeController.drivingTypeBrakeSpeedLimit); // self-brake
+        // CurveBraking(DrivingTypeController.drivingTypeBrakeDistance, DrivingTypeController.drivingTypeBrakeSpeedLimit); // self-brake
+        Brake();
+        Breaking();
     }
 
     void ApplySteer()
@@ -91,11 +90,21 @@ public class CarEngine : MonoBehaviour
         }
     }
 
+    void Brake() 
+    {
+        if (nodes[currentNode].tag == "Curve")
+            isBraking = true;
+        
+        else isBraking = false;
+    }
+
     void Breaking() 
     {
+        Debug.Log("maxBrakeTorque: " + maxBrakeTorque);
         if (isBraking)
         {
             carRenderer.material.mainTexture = textureBreaking;
+
             wheelRL.brakeTorque = maxBrakeTorque;
             wheelRR.brakeTorque = maxBrakeTorque;
         }

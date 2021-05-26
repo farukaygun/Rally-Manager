@@ -6,25 +6,23 @@ using UnityEngine.UI;
 public class DrivingTypeController : MonoBehaviour
 {
     public Dropdown drivingTypeDropdown;
-    public static float drivingTypeBrakeDistance;
-    public static float drivingTypeBrakeSpeedLimit;
     
     public void SetDropdownValue()
     {
         // Sakin
         if (drivingTypeDropdown.value == 0)
         {
-           drivingTypeBrakeDistance = 35f;
+           CarEngine.maxBrakeTorque = 65f;
         }
         // Normal
         else if (drivingTypeDropdown.value == 1)
         {
-            drivingTypeBrakeDistance = 30f;
+            CarEngine.maxBrakeTorque = 60f;
         }
         // Agresif
         else if (drivingTypeDropdown.value == 2)
         {
-            drivingTypeBrakeDistance = 25f;
+            CarEngine.maxBrakeTorque = 55f;
         }
     }
 }
