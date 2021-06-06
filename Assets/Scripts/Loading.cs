@@ -7,7 +7,7 @@ public class Loading : MonoBehaviour
 {
   public Slider progressBar;
 
-  public void LoadLevel(int level)
+  public void LoadLevel()
   {
     StartCoroutine(StartLoading());
   }

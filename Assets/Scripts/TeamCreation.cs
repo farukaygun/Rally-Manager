@@ -12,7 +12,7 @@ public class TeamCreation : MonoBehaviour
 
   string teamName;
   string diffuculty;
-  float teamBudget;
+  int teamBudget;
 
   public void OnChangeInputField(InputField inputFieldName)
   {
@@ -26,19 +26,19 @@ public class TeamCreation : MonoBehaviour
     if (dropdownGameDiffuculty.value == 0)
     {
       textTeamBudget.text = "750.000$"; 
-      teamBudget = 750.000f;
+      teamBudget = 750000;
       diffuculty = "kolay";
     }
     else if (dropdownGameDiffuculty.value == 1)
     {
       textTeamBudget.text = "600.000$";
-      teamBudget = 600.000f;
+      teamBudget = 600000;
       diffuculty = "orta";
     }
     else if (dropdownGameDiffuculty.value == 2)
     {
       textTeamBudget.text = "500.000$";
-      teamBudget = 500.000f;
+      teamBudget = 500000;
       diffuculty = "zor";
     }
   }
@@ -47,8 +47,8 @@ public class TeamCreation : MonoBehaviour
   {
     if (teamName != null || teamBudget > 0f || diffuculty != null)
     {
-      Database.InsertTotblTeam(teamName, null, null, teamBudget);
-      Database.InsertTotblGameSettings(diffuculty);
+      DatabaseInsertion.InsertTotblTeam(teamName, null, null, teamBudget);
+      DatabaseInsertion.InsertTotblGameSettings(diffuculty);
     }
   }
 

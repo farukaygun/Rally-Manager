@@ -45,9 +45,7 @@ public class PlayerCreation : MonoBehaviour
   {
     if (avaliableSkillPoints > 0)
     {
-      Debug.Log("skill: " + skill);
       skill += 1;
-      Debug.Log("skill: " + skill);
       avaliableSkillPoints -= 1;
 
       name.text = skill.ToString();
@@ -74,17 +72,14 @@ public class PlayerCreation : MonoBehaviour
     if (inputFieldName.name == "InputFieldName")
     {
       playerName = inputFieldName.text;
-      Debug.Log(playerName);
     }
     else if (inputFieldName.name == "InputFieldSurname")
     {
       playerSurname = inputFieldName.text;
-      Debug.Log(playerSurname);
     }
     else if (inputFieldName.name == "InputFieldAge")
     {
       playerAge = int.Parse(inputFieldName.text);
-      Debug.Log(playerAge);
     }
   }
 
@@ -92,12 +87,12 @@ public class PlayerCreation : MonoBehaviour
   {
     if (playerName != null || playerSurname != null || playerAge > 0)
     {
-      Database.InsertTotblManager(playerName, playerSurname, playerAge);
+      DatabaseInsertion.InsertTotblManager(playerName, playerSurname, playerAge);
     }
     else Debug.Log("hata 1!");
     if (avaliableSkillPoints == 0)
     {
-      Database.InsertTotblManagerSkills(avaliableSkillPoints, personManagement, motivation, adaptation, decisiveness);
+      DatabaseInsertion.InsertTotblManagerSkills(avaliableSkillPoints, personManagement, motivation, adaptation, decisiveness);
     }
     else Debug.Log("hata 2!");
   }

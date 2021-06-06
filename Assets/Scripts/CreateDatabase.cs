@@ -56,7 +56,7 @@ public class CreateDatabase : MonoBehaviour
                           " 'name' VARCHAR(20), " +
                           " 'avatar' TEXT, " +
                           " 'logo' TEXT, " +
-                          " 'budget' FLOAT " +
+                          " 'budget' INT " +
                           " );";
         var result = cmd.ExecuteNonQuery();
       }
@@ -69,9 +69,50 @@ public class CreateDatabase : MonoBehaviour
                           " );";
         var result = cmd.ExecuteNonQuery();
       }
+
+      
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "CREATE TABLE IF NOT EXISTS 'tblPilot' ( " +
+                          " 'id' INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                          " 'name' VARCHAR(30), " +
+                          " 'age' INT, " +
+                          " 'abilityPoint' INT, " +
+                          " 'potantial' INT, " +
+                          " 'salary' INT DEFAULT NULL, " +
+                          " 'teamID' REFERENCES tblTeam(id) " +
+                          " );";
+        var result = cmd.ExecuteNonQuery();
+      }
+
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "CREATE TABLE IF NOT EXISTS 'tblCar' ( " +
+                          " 'id' INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                          " 'name' VARCHAR(30), " +
+                          " 'mass' INT, " +
+                          " 'suspansionDistance' INT, " +
+                          " 'horsePower' INT, " +
+                          " 'price' INT DEFAULT NULL, " +
+                          " 'teamID' REFERENCES tblTeam(id) " +
+                          " );";
+        var result = cmd.ExecuteNonQuery();
+      }
+
       conn.Close();
+    
     }
   }
+
+
+// INSERT INTO tblPilot (name, age, abilityPoint, potantial, salary, teamID) VALUES ('Ali', 24, 70, 80, 1000, 1);
+// INSERT INTO tblPilot (name, age, abilityPoint, potantial, salary, teamID) VALUES ('Seca', 24, 70, 80, 2000, 2);
+
+// SELECT * FROM tblPilot WHERE teamID = 1;
+
+// SELECT * FROM tblPilot as p INNER JOIN tblTeam as t ON p.teamID = t.id WHERE t.name="FA FC"
 
 
   // public string conn;
