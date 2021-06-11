@@ -12,9 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Create Profile.unity
     guid: 5016beb05e6228e43bc7cb79b9f8d5bf
   - enabled: 1
-    path: Assets/Scenes/Lobby.unity
+    path: Assets/Scenes/TeamConfig.unity
     guid: 0e03f89836a780e46bfa4c032ed6c01b
   - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 406de2d6983fe5746a168a10830cf0f6
+  - enabled: 1
     path: Assets/Scenes/Game.unity
+    guid: 3ce3d558546b1184b84ab886f3b8c1ab
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

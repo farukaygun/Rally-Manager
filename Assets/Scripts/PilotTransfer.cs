@@ -13,16 +13,13 @@ public class PilotTransfer : MonoBehaviour
   public GameObject row4;
 
   public Text textBudget;
-  
-  string budget;
-
 
   void Start()
   {
     pilots = DatabaseSelection.SelectFromtblPilot();
-    budget = DatabaseSelection.SelectBudgetFromtblTeam();
+    Global.budget = DatabaseSelection.SelectBudgetFromtblTeam();
 
-    textBudget.text = "Bütçe: $" + budget;
+    textBudget.text = "Bütçe: $" + Global.budget;
     
     SetToTable();
   }
@@ -56,12 +53,12 @@ public class PilotTransfer : MonoBehaviour
 
   void SignContractWithPilot(int id, int salary, GameObject row)
   {
-    budget = (int.Parse(budget) - salary).ToString();
+    Global.budget = (int.Parse(Global.budget) - salary).ToString();
 
-    DatabaseUpdate.UpdateManagerTeamBudget(budget); 
-    DatabaseUpdate.UpdateManagerTeamPilot(1, id); 
+    DatabaseUpdate.UpdateManagerTeamBudget(Global.budget); 
+    DatabaseUpdate.UpdateManagerTeamPilot("1", id); 
 
-    textBudget.text = "Bütçe: $" + budget;
+    textBudget.text = "Bütçe: $" + Global.budget;
 
     row.transform.Find("Button (1)").GetComponent<Button>().enabled = false;
   }

@@ -8,7 +8,7 @@ public class DatabaseUpdate : MonoBehaviour
 {
   private static string conString = @"Data Source=C:\Users\Faruk\AppData\LocalLow\DefaultCompany\Rally Manager\rallyManagerData.db;Pooling=true;FailIfMissing=false;Version=3";
 
-  public static void UpdateManagerTeamPilot(int teamID, int id)
+  public static void UpdateManagerTeamPilot(string teamID, int id)
   {
     using (var conn = new SqliteConnection(conString))
     {
@@ -33,7 +33,7 @@ public class DatabaseUpdate : MonoBehaviour
     }
   }
 
-  public static void UpdateManagerTeamCar(int teamID, int id)
+  public static void UpdateManagerTeamCar(string teamID, int id)
   {
     using (var conn = new SqliteConnection(conString))
     {

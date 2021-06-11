@@ -9,13 +9,12 @@ public class CarBuy : MonoBehaviour
   public GameObject carRow1;
   public Text textBudget;
 
-  string budget;
 
   void Start()
   {
     cars = DatabaseSelection.SelectFromtblCar();
-    budget = DatabaseSelection.SelectBudgetFromtblTeam();
-    textBudget.text = "Bütçe: $" + budget;
+    Global.budget = DatabaseSelection.SelectBudgetFromtblTeam();
+    textBudget.text = "Bütçe: $" + Global.budget;
     SetToTable();
   }
 
@@ -30,9 +29,9 @@ public class CarBuy : MonoBehaviour
 
   void BuyCar(int id, int price, GameObject row)
   {
-    budget = (int.Parse(budget) - price).ToString();
-    DatabaseUpdate.UpdateManagerTeamCar(1, id);
-    textBudget.text = "Bütçe: $" + budget;
+    Global.budget = (int.Parse(Global.budget) - price).ToString();
+    DatabaseUpdate.UpdateManagerTeamCar("1", id);
+    textBudget.text = "Bütçe: $" + Global.budget;
     carRow1.transform.Find("Button (1)").GetComponent<Button>().enabled = false;
   }
 

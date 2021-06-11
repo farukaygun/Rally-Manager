@@ -169,4 +169,30 @@ public class DatabaseInsertion : MonoBehaviour
       conn.Close();
     }
   }
+
+  public static void InsertTotblFixture(string name, string date, bool status)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "INSERT INTO 'tblFixture' (name, date, status) VALUES " +
+                                                          "(@param1, @param2, @param3, @param4)";
+
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("@param1", name));
+        cmd.Parameters.Add(new SqliteParameter("@param2", date));
+        cmd.Parameters.Add(new SqliteParameter("@param3", status));
+
+        var result = cmd.ExecuteReader();
+
+        Debug.Log("insert schema: " + result);
+      }
+
+      conn.Close();
+    }
+  }
 }

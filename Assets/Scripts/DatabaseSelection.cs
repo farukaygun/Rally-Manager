@@ -14,7 +14,7 @@ public class DatabaseSelection : MonoBehaviour
     {
       conn.Open();
 
-      List<Pilot> pilots = new List<Pilot>();   
+      List<Pilot> pilots = new List<Pilot>();
       using (var cmd = conn.CreateCommand())
       {
         cmd.CommandType = CommandType.Text;
@@ -26,8 +26,8 @@ public class DatabaseSelection : MonoBehaviour
 
         while (result.Read())
         {
-          var pilot = new Pilot 
-          { 
+          var pilot = new Pilot
+          {
             id = result.GetValue(0).ToString(),
             name = result.GetValue(1).ToString(),
             age = result.GetValue(2).ToString(),
@@ -40,7 +40,7 @@ public class DatabaseSelection : MonoBehaviour
         }
         Debug.Log("select schema: " + result.Read());
       }
-      
+
       conn.Close();
       return pilots;
     }
@@ -52,7 +52,7 @@ public class DatabaseSelection : MonoBehaviour
     {
       conn.Open();
 
-      List<Car> cars = new List<Car>();   
+      List<Car> cars = new List<Car>();
       using (var cmd = conn.CreateCommand())
       {
         cmd.CommandType = CommandType.Text;
@@ -65,7 +65,7 @@ public class DatabaseSelection : MonoBehaviour
         while (result.Read())
         {
           var car = new Car
-          { 
+          {
             id = result.GetValue(0).ToString(),
             name = result.GetValue(1).ToString(),
             mass = result.GetValue(2).ToString(),
@@ -78,7 +78,7 @@ public class DatabaseSelection : MonoBehaviour
         }
         Debug.Log("select schema: " + result.Read());
       }
-      
+
       conn.Close();
       return cars;
     }
@@ -105,13 +105,89 @@ public class DatabaseSelection : MonoBehaviour
       var stringResult = result.GetValue(0).ToString();
 
       conn.Close();
-      
+
       return stringResult;
+    }
+  }
+
+  public static List<Pilot> SelectFromtblTeamPilots()
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      List<Pilot> pilots = new List<Pilot>();
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "SELECT * FROM 'tblPilot' WHERE teamID = @param1";
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("@param1", "1"));
+
+        var result = cmd.ExecuteReader();
+
+        while (result.Read())
+        {
+          var pilot = new Pilot
+          {
+            id = result.GetValue(0).ToString(),
+            name = result.GetValue(1).ToString(),
+            age = result.GetValue(2).ToString(),
+            abilityPoint = result.GetValue(3).ToString(),
+            potantial = result.GetValue(4).ToString(),
+            salary = result.GetValue(5).ToString()
+          };
+
+          pilots.Add(pilot);
+        }
+        Debug.Log("select schema: " + result.Read());
+      }
+
+      conn.Close();
+      return pilots;
+    }
+  }
+
+  public static List<Car> SelectFromtblTeamCars()
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      List<Car> cars = new List<Car>();
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "SELECT * FROM 'tblCar' WHERE teamID = @param1";
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("@param1", "1"));
+
+        var result = cmd.ExecuteReader();
+
+        while (result.Read())
+        {
+          var car = new Car
+          {
+            id = result.GetValue(0).ToString(),
+            name = result.GetValue(1).ToString(),
+            mass = result.GetValue(2).ToString(),
+            suspansionDistance = result.GetValue(3).ToString(),
+            horsePower = result.GetValue(4).ToString(),
+            price = result.GetValue(5).ToString()
+          };
+
+          cars.Add(car);
+        }
+        Debug.Log("select schema: " + result.Read());
+      }
+
+      conn.Close();
+      return cars;
     }
   }
 }
 
-public class Pilot 
+public struct Pilot
 {
   public string id { get; set; }
   public string name { get; set; }
@@ -121,7 +197,7 @@ public class Pilot
   public string salary { get; set; }
 }
 
-public class Car 
+public struct Car
 {
   public string id { get; set; }
   public string name { get; set; }

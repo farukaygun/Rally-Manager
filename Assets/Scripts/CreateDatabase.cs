@@ -65,7 +65,8 @@ public class CreateDatabase : MonoBehaviour
       {
         cmd.CommandType = CommandType.Text;
         cmd.CommandText = "CREATE TABLE IF NOT EXISTS 'tblGameSettings' ( " +
-                          " 'gameDiffuculty' VARCHAR(5) " +
+                          " 'gameDiffuculty' VARCHAR(5), " +
+                          " 'fixtureId' INT " +
                           " );";
         var result = cmd.ExecuteNonQuery();
       }
@@ -101,65 +102,22 @@ public class CreateDatabase : MonoBehaviour
         var result = cmd.ExecuteNonQuery();
       }
 
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "CREATE TABLE IF NOT EXISTS 'tblFixture' ( " +
+                          " 'id' INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                          " 'name' VARCHAR(30), " +
+                          " 'date' VARCHAR(20), " +
+                          " 'status' BOOLEAN " +
+                          " );";
+        var result = cmd.ExecuteNonQuery();
+      }
+
       conn.Close();
     
     }
   }
-
-
-// INSERT INTO tblPilot (name, age, abilityPoint, potantial, salary, teamID) VALUES ('Ali', 24, 70, 80, 1000, 1);
-// INSERT INTO tblPilot (name, age, abilityPoint, potantial, salary, teamID) VALUES ('Seca', 24, 70, 80, 2000, 2);
-
-// SELECT * FROM tblPilot WHERE teamID = 1;
-
-// SELECT * FROM tblPilot as p INNER JOIN tblTeam as t ON p.teamID = t.id WHERE t.name="FA FC"
-
-
-  // public string conn;
-  // public IDbConnection dbConn;
-
-  // public Database()
-  // {
-  //     conn = "URI=file:" + Application.persistentDataPath + "/data.db";
-  //     Debug.Log("coon: " + conn);
-
-  //     dbConn = new SqliteConnection(conn);
-  //     dbConn.Open();
-  // }
-
-  // ~Database()
-  // {
-  //     dbConn.Close();
-  // }
 }
 
-
-// using UnityEngine;
-// using System.Collections;
-// using System.Collections.Generic;
-// using Mono.Data.Sqlite;
-// using System.Data;
-
-// public class Database : MonoBehaviour
-// {
-//     private static Database instance = null;
-
-//     // 1 nesne oluşmasını sağlamak için lock
-//     private static readonly object padlock = new object();
-
-//     private Database() {}
-
-//     public static Database Instance
-//     {
-//         get
-//         {
-//             lock (padlock)
-//             {
-//                 if (instance == null)
-//                 {
-//                     instance = new Database();
-//                 }
-//             }
-//             return instance;
-//         }
-//     }
+// Select * from tblPilot WHERE teamID IS NULL ORDER BY id asc LIMIT 1
