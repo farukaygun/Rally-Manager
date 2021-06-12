@@ -185,6 +185,64 @@ public class DatabaseSelection : MonoBehaviour
       return cars;
     }
   }
+
+  // public static string SelectFixtureFromGameSettings()
+  // {
+  //   using (var conn = new SqliteConnection(conString))
+  //   {
+  //     conn.Open();
+
+  //     SqliteDataReader result;
+  //     using (var cmd = conn.CreateCommand())
+  //     {
+  //       cmd.CommandType = CommandType.Text;
+  //       cmd.CommandText = "SELECT fixtureId FROM 'tblGameSettings'";
+  //       cmd.CommandType = CommandType.Text;
+  //       cmd.Parameters.Add(new SqliteParameter("@param1", "1"));
+
+  //       result = cmd.ExecuteReader();
+
+  //       Debug.Log("select schema: " + result.Read());
+  //     }
+
+  //     conn.Close();
+  //     Debug.Log(result.GetValue(0).ToString());
+  //     return result.GetValue(0).ToString();
+  //   }
+  // }
+
+// Select * from tblPilot WHERE teamID IS NULL ORDER BY id asc LIMIT 1
+  public static Fixture SelectFromFixture(bool isDone)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      Fixture fixture;
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "SELECT * FROM 'tblFixture' WHERE status = @param1 ORDER BY id asc LIMIT 1";
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("@param1", isDone));
+
+        var result = cmd.ExecuteReader();
+
+        fixture = new Fixture
+        {
+          id = result.GetValue(0).ToString(),
+          name = result.GetValue(1).ToString(),
+          date = result.GetValue(2).ToString(),
+          status = bool.Parse(result.GetValue(3).ToString())
+        };
+
+        Debug.Log("select schema: " + result.Read());
+      }
+      conn.Close();
+      
+      return fixture;
+    }
+  }
 }
 
 public struct Pilot
@@ -205,4 +263,12 @@ public struct Car
   public string suspansionDistance { get; set; }
   public string horsePower { get; set; }
   public string price { get; set; }
+}
+
+public struct Fixture
+{
+  public string id { get; set; }
+  public string name { get; set; }
+  public string date { get; set; }
+  public bool status { get; set; }
 }

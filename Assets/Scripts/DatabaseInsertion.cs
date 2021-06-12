@@ -180,7 +180,7 @@ public class DatabaseInsertion : MonoBehaviour
       {
         cmd.CommandType = CommandType.Text;
         cmd.CommandText = "INSERT INTO 'tblFixture' (name, date, status) VALUES " +
-                                                          "(@param1, @param2, @param3, @param4)";
+                                                          "(@param1, @param2, @param3)";
 
         cmd.CommandType = CommandType.Text;
         cmd.Parameters.Add(new SqliteParameter("@param1", name));

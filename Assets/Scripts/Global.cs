@@ -5,4 +5,5 @@ using UnityEngine;
 public class Global : MonoBehaviour
 {
   public static string budget;
+  public static Fixture currentFixture;
 }

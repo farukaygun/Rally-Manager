@@ -119,5 +119,3 @@ public class CreateDatabase : MonoBehaviour
     }
   }
 }
-
-// Select * from tblPilot WHERE teamID IS NULL ORDER BY id asc LIMIT 1

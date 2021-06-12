@@ -9,6 +9,8 @@ public class Lobby : MonoBehaviour
   public GameObject pilotTable;
   public GameObject carTable;
   public GameObject carFix;
+  public GameObject beforeRace;
+
   public GameObject rowCars;
   public GameObject rowPilots;
   private GameObject newRow;
@@ -21,6 +23,12 @@ public class Lobby : MonoBehaviour
   public Button backToLobbyFromCars;
   public Button backToLobbyFromPilots;
   public Button backToLobbyFromCarFix;
+  public Button playButton;
+  public Button buttonRepair;
+
+  public Text textFixtureId;
+  public Text textFixtureName;
+  public Text textFixtureDate;
 
   private void Start()
   {
@@ -55,6 +63,7 @@ public class Lobby : MonoBehaviour
       newRow = Instantiate(rowCars);
       newRow.tag = "rowClone";
       newRow.transform.SetParent(GameObject.Find("TableCars").transform, false);
+      newRow.transform.GetComponentInChildren<Button>().onClick.AddListener(() => CarFixShow());
 
       newRow.transform.Find("TextName").GetComponent<Text>().text = item.name;
       newRow.transform.Find("TextMass").GetComponent<Text>().text = item.mass;
@@ -88,9 +97,35 @@ public class Lobby : MonoBehaviour
   }
 
   void BackToLobbyFromCarFix()
-  {
+  {    
     carFix.SetActive(false);
     carTable.SetActive(true);
+    
+    SetCarsToTable();
+  }
+
+  void PlayMatch()
+  {
+    Global.currentFixture = DatabaseSelection.SelectFromFixture(false);
+
+    mainLobby.SetActive(false);
+    beforeRace.SetActive(true);
+
+    SetRaceInfo();
+  }
+
+  void CarFixShow()
+  {
+    DestroyRow();
+    carFix.SetActive(true);
+    carTable.SetActive(false);
+  }
+
+  void SetRaceInfo()
+  {
+    textFixtureId.text = Global.currentFixture.id;
+    textFixtureName.text = Global.currentFixture.name;
+    textFixtureDate.text = Global.currentFixture.date;
   }
 
   private void OnEnable()
@@ -100,5 +135,7 @@ public class Lobby : MonoBehaviour
     backToLobbyFromCars.onClick.AddListener(() => BackToLobbyFromCar());
     backToLobbyFromPilots.onClick.AddListener(() => BackToLobbyFromPilot());
     backToLobbyFromCarFix.onClick.AddListener(() => BackToLobbyFromCarFix());
+    playButton.onClick.AddListener(() => PlayMatch());
+    buttonRepair.onClick.AddListener(() => CarFixShow());
   }
 }

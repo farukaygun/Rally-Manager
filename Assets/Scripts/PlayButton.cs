@@ -14,7 +14,7 @@ public class PlayButton : MonoBehaviour
 
       DatabaseInsertion.InsertPilotsTotblPilots("Faruk", 24, 77, 88, 5000, null);
       DatabaseInsertion.InsertPilotsTotblPilots("Ali", 26, 66, 88, 10000, null);
-      DatabaseInsertion.InsertPilotsTotblPilots("Muhammed", 33, 77, 88, 8888, "1");
+      DatabaseInsertion.InsertPilotsTotblPilots("Muhammed", 33, 77, 88, 8888, null);
       DatabaseInsertion.InsertPilotsTotblPilots("Seca", 22, 66, 77, 1000, null);
 
       DatabaseInsertion.InsertPilotsTotblPilots("Hamit", 31, 88, 99, 11111, "2");
