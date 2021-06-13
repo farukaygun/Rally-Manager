@@ -6,7 +6,7 @@ using System.Data;
 
 public class DatabaseInsertion : MonoBehaviour
 {
-  private static string conString = @"Data Source=C:\Users\Faruk\AppData\LocalLow\DefaultCompany\Rally Manager\rallyManagerData.db;Pooling=true;FailIfMissing=false;Version=3";
+  private static string conString = @"Data Source=" + Global.dbPath + ";Pooling=true;FailIfMissing=false;Version=3";
 
   public static void InsertTotblManager(string name, string surname, int age)
   {

@@ -10,9 +10,14 @@ public class Lobby : MonoBehaviour
   public GameObject carTable;
   public GameObject carFix;
   public GameObject beforeRace;
+  public GameObject beforeRaceTablePilots;
+  public GameObject beforeRaceTableCars;
 
   public GameObject rowCars;
   public GameObject rowPilots;
+  public GameObject beforeRaceRowPilots;
+  public GameObject beforeRaceRowCars;
+
   private GameObject newRow;
 
   private List<Pilot> pilots;
@@ -25,10 +30,13 @@ public class Lobby : MonoBehaviour
   public Button backToLobbyFromCarFix;
   public Button playButton;
   public Button buttonRepair;
+  public Button buttonStartRace;
 
   public Text textFixtureId;
   public Text textFixtureName;
   public Text textFixtureDate;
+
+  public Loading loading;
 
   private void Start()
   {
@@ -36,7 +44,7 @@ public class Lobby : MonoBehaviour
     cars = DatabaseSelection.SelectFromtblTeamCars();
   }
 
-  void SetPilotsToTable()
+  void SetPilotsToTable(GameObject rowPilots)
   {
     rowPilots.SetActive(true);
     foreach (var item in pilots)
@@ -44,18 +52,25 @@ public class Lobby : MonoBehaviour
       newRow = Instantiate(rowPilots);
       newRow.tag = "rowClone";
       newRow.transform.SetParent(GameObject.Find("TablePilots").transform, false);
-      
+
+      if (rowPilots == beforeRaceRowPilots)
+      {
+        newRow.transform.GetComponentInChildren<Button>().onClick.AddListener(() => SelectPilotForRace(item.id));
+      }
 
       newRow.transform.Find("TextName").GetComponent<Text>().text = item.name;
       newRow.transform.Find("TextAge").GetComponent<Text>().text = item.age;
       newRow.transform.Find("TextAbility").GetComponent<Text>().text = item.abilityPoint;
       newRow.transform.Find("TextPotantial").GetComponent<Text>().text = item.potantial;
-      newRow.transform.Find("TextSalary").GetComponent<Text>().text = "$" + item.salary;
+      if (this.rowPilots == rowPilots)
+      {
+        newRow.transform.Find("TextSalary").GetComponent<Text>().text = "$" + item.salary;
+      }
     }
     rowPilots.SetActive(false);
   }
 
-  void SetCarsToTable()
+  void SetCarsToTable(GameObject rowCars)
   {
     rowCars.SetActive(true);
     foreach (var item in cars)
@@ -63,7 +78,14 @@ public class Lobby : MonoBehaviour
       newRow = Instantiate(rowCars);
       newRow.tag = "rowClone";
       newRow.transform.SetParent(GameObject.Find("TableCars").transform, false);
-      newRow.transform.GetComponentInChildren<Button>().onClick.AddListener(() => CarFixShow());
+      if (this.rowCars == rowCars)
+      {
+        newRow.transform.GetComponentInChildren<Button>().onClick.AddListener(() => CarFixShow());
+      } 
+      else
+      {
+        newRow.transform.GetComponentInChildren<Button>().onClick.AddListener(() => SelectCarForRace(item.id));
+      }
 
       newRow.transform.Find("TextName").GetComponent<Text>().text = item.name;
       newRow.transform.Find("TextMass").GetComponent<Text>().text = item.mass;
@@ -101,7 +123,7 @@ public class Lobby : MonoBehaviour
     carFix.SetActive(false);
     carTable.SetActive(true);
     
-    SetCarsToTable();
+    SetCarsToTable(rowCars);
   }
 
   void PlayMatch()
@@ -112,6 +134,7 @@ public class Lobby : MonoBehaviour
     beforeRace.SetActive(true);
 
     SetRaceInfo();
+    SetPilotsToTable(beforeRaceRowPilots);
   }
 
   void CarFixShow()
@@ -128,14 +151,44 @@ public class Lobby : MonoBehaviour
     textFixtureDate.text = Global.currentFixture.date;
   }
 
+  void SelectPilotForRace(string pilotId)
+  {
+    Global.currentPilotId = pilotId;
+
+    beforeRaceTablePilots.SetActive(false);
+    beforeRaceTableCars.SetActive(true);
+
+    SetCarsToTable(beforeRaceRowCars);
+  }
+
+  void SelectCarForRace(string carId)
+  {
+    Global.currentCarId = carId;
+
+    beforeRaceTableCars.SetActive(false);
+    buttonStartRace.gameObject.SetActive(true);
+  }
+
+  void StartRace()
+  {
+    buttonStartRace.gameObject.SetActive(false);
+    textFixtureId.gameObject.SetActive(false);
+    textFixtureName.gameObject.SetActive(false);
+    textFixtureDate.gameObject.SetActive(false);
+
+    loading.gameObject.SetActive(true);
+    loading.LoadLevel();
+  }
+
   private void OnEnable()
   {
-    buttonMyCars.onClick.AddListener(() => SetCarsToTable());
-    buttonMyPilots.onClick.AddListener(() => SetPilotsToTable());
+    buttonMyCars.onClick.AddListener(() => SetCarsToTable(rowCars));
+    buttonMyPilots.onClick.AddListener(() => SetPilotsToTable(rowPilots));
     backToLobbyFromCars.onClick.AddListener(() => BackToLobbyFromCar());
     backToLobbyFromPilots.onClick.AddListener(() => BackToLobbyFromPilot());
     backToLobbyFromCarFix.onClick.AddListener(() => BackToLobbyFromCarFix());
     playButton.onClick.AddListener(() => PlayMatch());
     buttonRepair.onClick.AddListener(() => CarFixShow());
+    buttonStartRace.onClick.AddListener(() => StartRace());
   }
 }

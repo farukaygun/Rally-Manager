@@ -4,20 +4,58 @@ using System.Collections.Generic;
 using Mono.Data.Sqlite;
 using System.Data;
 using System.Threading;
+using System.IO;
 
 public class CreateDatabase : MonoBehaviour
 {
-  private static string dbPath;
+  private static string connString;
 
   private void Start()
   {
-    dbPath = "URI=file:" + Application.persistentDataPath + "/rallyManagerData.db";
+    //dbPath = "URI=file:" + Application.persistentDataPath + "/rallyManagerData.db";
+
+#if UNITY_EDITOR
+  var dbPath = string.Format(@"Assets/StreamingAssets/{0}", Global.dbName);
+#else
+        // check if file exists in Application.persistentDataPath
+        var filepath = string.Format("{0}/{1}", Application.persistentDataPath, Global.dbName);
+
+        if (!File.Exists(filepath))
+        {
+            Debug.Log("Database not in Persistent path");
+            // if it doesn't ->
+            // open StreamingAssets directory and load the db ->
+
+#if UNITY_ANDROID
+            var loadDb = new WWW("jar:file://" + Application.dataPath + "!/assets/" + Global.dbName);  // this is the path to your StreamingAssets in android
+            while (!loadDb.isDone) { }  // CAREFUL here, for safety reasons you shouldn't let this while loop unattended, place a timer and error check
+            // then save to Application.persistentDataPath
+            File.WriteAllBytes(filepath, loadDb.bytes);
+#elif UNITY_WINRT
+		var loadDb = Application.dataPath + "/StreamingAssets/" + Global.dbName;  // this is the path to your StreamingAssets in iOS
+		// then save to Application.persistentDataPath
+		File.Copy(loadDb, filepath);
+#else
+	var loadDb = Application.dataPath + "/StreamingAssets/" + Global.dbName;  // this is the path to your StreamingAssets in iOS
+	// then save to Application.persistentDataPath
+	File.Copy(loadDb, filepath);
+
+#endif
+
+            Debug.Log("Database written");
+        }
+
+        var dbPath = filepath;
+#endif
+    Global.dbPath = dbPath;
+    Debug.Log("Final PATH: " + dbPath); // /storage/emulated/0/Android/data/com.DefaultCompany.RallyManager/files/rallyManagerData.db
+
+    connString = @"Data Source=" + dbPath + ";Pooling=true;FailIfMissing=false;Version=3";
   }
 
   public static void CreateSchemas()
   {
-    Debug.Log(Application.persistentDataPath + "/rallyManagerData.db");
-    using (var conn = new SqliteConnection(dbPath))
+    using (var conn = new SqliteConnection(connString))
     {
       conn.Open();
 
