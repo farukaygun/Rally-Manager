@@ -5,24 +5,29 @@ using UnityEngine.UI;
 
 public class DrivingTypeController : MonoBehaviour
 {
-    public Dropdown drivingTypeDropdown;
-    
-    public void SetDropdownValue()
+  public Dropdown drivingTypeDropdown;
+
+  private void Start()
+  {
+    drivingTypeDropdown = GameObject.Find("DropdownDrivingType").GetComponent<Dropdown>();
+  }
+
+  public void SetDropdownValue()
+  {
+    // Sakin
+    if (drivingTypeDropdown.value == 0)
     {
-        // Sakin
-        if (drivingTypeDropdown.value == 0)
-        {
-           CarEngine.maxBrakeTorque = 65f;
-        }
-        // Normal
-        else if (drivingTypeDropdown.value == 1)
-        {
-            CarEngine.maxBrakeTorque = 60f;
-        }
-        // Agresif
-        else if (drivingTypeDropdown.value == 2)
-        {
-            CarEngine.maxBrakeTorque = 55f;
-        }
+      CarEngine.maxBrakeTorque = 65f;
     }
+    // Normal
+    else if (drivingTypeDropdown.value == 1)
+    {
+      CarEngine.maxBrakeTorque = 60f;
+    }
+    // Agresif
+    else if (drivingTypeDropdown.value == 2)
+    {
+      CarEngine.maxBrakeTorque = 55f;
+    }
+  }
 }

@@ -53,6 +53,8 @@ public class PilotTransfer : MonoBehaviour
 
   void SignContractWithPilot(int id, int salary, GameObject row)
   {
+    Debug.Log(Global.budget + " " + Global.budget.GetType());
+    Debug.Log(salary + " " + salary.GetType());
     Global.budget = (int.Parse(Global.budget) - salary).ToString();
 
     DatabaseUpdate.UpdateManagerTeamBudget(Global.budget); 

@@ -42,9 +42,11 @@ public class PilotTypeController : MonoBehaviour
 
 	pilotSpecs ps;
 
-	void Start()
+	void Awake()
 	{
+		pilotTypeDropdown = GameObject.Find("DropdownPilotType").GetComponent<Dropdown>();
 		wheelCollider = gameObject.GetComponent<WheelCollider>();
+		pilotTypeDropdown.value = 0;
 	}
 
 	// Pilotun �zelliklerini ara� �zelliklerine �evir

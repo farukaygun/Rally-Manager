@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Path : MonoBehaviour
 {
 
-    public Color lineColor = Color.red; // Rengi a�a��da atamazsak gizmos �izilmiyor.
+    public Color lineColor = Color.red; // Rengi aşağıda atamazsak gizmos çizilmiyor.
 
     private List<Transform> nodes = new List<Transform>();
 

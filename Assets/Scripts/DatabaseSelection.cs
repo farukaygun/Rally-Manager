@@ -96,7 +96,7 @@ public class DatabaseSelection : MonoBehaviour
         cmd.CommandType = CommandType.Text;
         cmd.CommandText = "SELECT budget FROM 'tblTeam' WHERE id = @param1";
         cmd.CommandType = CommandType.Text;
-        cmd.Parameters.Add(new SqliteParameter("@param1", 1));
+        cmd.Parameters.Add(new SqliteParameter("@param1", "1"));
 
         result = cmd.ExecuteReader();
 
@@ -105,7 +105,7 @@ public class DatabaseSelection : MonoBehaviour
       var stringResult = result.GetValue(0).ToString();
 
       conn.Close();
-
+      Debug.Log(stringResult + "aloooooo");
       return stringResult;
     }
   }
@@ -145,6 +145,69 @@ public class DatabaseSelection : MonoBehaviour
 
       conn.Close();
       return pilots;
+    }
+  }
+
+  public static PilotSpecs SelectSpecsFromtblTeamPilotSpecs(int id)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      PilotSpecs pilot;
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "SELECT * FROM 'tblPilotSpecs' WHERE id = @param1";
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("@param1", id));
+
+        var result = cmd.ExecuteReader();
+
+        pilot = new PilotSpecs
+        {
+          extremumSlip = int.Parse(result.GetValue(1).ToString()),
+          extremumValue = int.Parse(result.GetValue(2).ToString()),
+          asymptoteSlip = int.Parse(result.GetValue(3).ToString()),
+          asymptoteValue = int.Parse(result.GetValue(4).ToString()),
+          stiffness = int.Parse(result.GetValue(5).ToString())
+        };
+        Debug.Log("select schema: " + result.Read());
+      }
+
+      conn.Close();
+      return pilot;
+    }
+  }
+
+  public static CarSpecs SelectSpecsFromtblTeamCar(int id)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      CarSpecs car;
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "SELECT id, name, mass, suspansionDistance, horsePower FROM 'tblCar' WHERE id = @param1";
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("@param1", id));
+
+        var result = cmd.ExecuteReader();
+
+        car = new CarSpecs
+        {
+          name = result.GetValue(1).ToString(),
+          mass = int.Parse(result.GetValue(2).ToString()),
+          suspansionDistance = int.Parse(result.GetValue(3).ToString()),
+          horsePower = int.Parse(result.GetValue(4).ToString())
+        };
+        Debug.Log("select schema: " + result.Read());
+      }
+
+      conn.Close();
+      return car;
     }
   }
 
@@ -271,4 +334,21 @@ public struct Fixture
   public string name { get; set; }
   public string date { get; set; }
   public bool status { get; set; }
+}
+
+public struct PilotSpecs
+{
+  public int extremumSlip { get; set; }
+  public int extremumValue { get; set; }
+  public int asymptoteSlip { get; set; }
+  public int asymptoteValue { get; set; }
+  public int stiffness { get; set; }
+}
+
+public struct CarSpecs
+{
+  public string name { get; set; }
+  public int mass { get; set; }
+  public int suspansionDistance { get; set; }
+  public int horsePower { get; set; }
 }

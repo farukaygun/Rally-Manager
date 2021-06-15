@@ -61,7 +61,7 @@ public class DatabaseInsertion : MonoBehaviour
     }
   }
 
-  public static void InsertTotblTeam(string name, string avatar, string logo, float budget)
+  public static void InsertTotblTeam(string name, string avatar, string logo, int budget)
   {
     using (var conn = new SqliteConnection(conString))
     {
@@ -131,6 +131,62 @@ public class DatabaseInsertion : MonoBehaviour
         cmd.Parameters.Add(new SqliteParameter("@param4", potantial));
         cmd.Parameters.Add(new SqliteParameter("@param5", salary));
         cmd.Parameters.Add(new SqliteParameter("@param6", teamID));
+
+        var result = cmd.ExecuteReader();
+
+        Debug.Log("insert schema: " + result);
+      }
+
+      conn.Close();
+    }
+  }
+
+  public static void InsertSpecsTotblPilotSpecs(int extremumSlip, int extremumValue, int asymptoteSlip, int asymptoteValue, int stiffness, int pilotId)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "INSERT INTO 'tblPilotSpecs' (extremumSlip, extremumValue, asymptoteSlip, asymptoteValue, stiffness, pilotId) VALUES " +
+                                                          "(@param1, @param2, @param3, @param4, @param5, @param6)";
+
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("@param1", extremumSlip));
+        cmd.Parameters.Add(new SqliteParameter("@param2", extremumValue));
+        cmd.Parameters.Add(new SqliteParameter("@param3", asymptoteSlip));
+        cmd.Parameters.Add(new SqliteParameter("@param4", asymptoteValue));
+        cmd.Parameters.Add(new SqliteParameter("@param5", stiffness));
+        cmd.Parameters.Add(new SqliteParameter("@param6", pilotId));
+
+        var result = cmd.ExecuteReader();
+
+        Debug.Log("insert schema: " + result);
+      }
+
+      conn.Close();
+    }
+  }
+
+  public static void InsertSpecsTotblPilotSpecs(int mass, int suspansionDistance, int horsePower, int carId)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "INSERT INTO 'tblPilotSpecs' (mass, suspansionDistance, horsePower, carId) VALUES " +
+                                                          "(@param1, @param2, @param3, @param4)";
+
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("@param1", mass));
+        cmd.Parameters.Add(new SqliteParameter("@param2", suspansionDistance));
+        cmd.Parameters.Add(new SqliteParameter("@param3", horsePower));
+        cmd.Parameters.Add(new SqliteParameter("@param4", carId));
 
         var result = cmd.ExecuteReader();
 

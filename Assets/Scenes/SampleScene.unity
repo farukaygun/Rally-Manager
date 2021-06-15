@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1649,6 +1649,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelHealth: 100
+  engineHealth: 100
+  turboHealth: 100
+  transmissionHealth: 100
+  fuelHealth: 100
+  wheelRepairToggle: {fileID: 0}
+  engineRepairToggle: {fileID: 0}
+  turboRepairToggle: {fileID: 0}
+  transmissionRepairToggle: {fileID: 0}
+  fuelRepairToggle: {fileID: 0}
+  repairButton: {fileID: 0}
 --- !u!114 &440027296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2265,6 +2275,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelHealth: 100
+  engineHealth: 100
+  turboHealth: 100
+  transmissionHealth: 100
+  fuelHealth: 100
+  wheelRepairToggle: {fileID: 0}
+  engineRepairToggle: {fileID: 0}
+  turboRepairToggle: {fileID: 0}
+  transmissionRepairToggle: {fileID: 0}
+  fuelRepairToggle: {fileID: 0}
+  repairButton: {fileID: 0}
 --- !u!114 &649463904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3617,6 +3637,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelHealth: 100
+  engineHealth: 100
+  turboHealth: 100
+  transmissionHealth: 100
+  fuelHealth: 100
+  wheelRepairToggle: {fileID: 0}
+  engineRepairToggle: {fileID: 0}
+  turboRepairToggle: {fileID: 0}
+  transmissionRepairToggle: {fileID: 0}
+  fuelRepairToggle: {fileID: 0}
+  repairButton: {fileID: 0}
 --- !u!114 &1270988305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5600,6 +5630,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelHealth: 100
+  engineHealth: 100
+  turboHealth: 100
+  transmissionHealth: 100
+  fuelHealth: 100
+  wheelRepairToggle: {fileID: 0}
+  engineRepairToggle: {fileID: 0}
+  turboRepairToggle: {fileID: 0}
+  transmissionRepairToggle: {fileID: 0}
+  fuelRepairToggle: {fileID: 0}
+  repairButton: {fileID: 0}
 --- !u!114 &1826023763
 MonoBehaviour:
   m_ObjectHideFlags: 0

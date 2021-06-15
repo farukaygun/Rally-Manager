@@ -128,6 +128,21 @@ public class CreateDatabase : MonoBehaviour
       using (var cmd = conn.CreateCommand())
       {
         cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "CREATE TABLE IF NOT EXISTS 'tblPilotSpecs' ( " +
+                          " 'id' INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                          " 'extremumSlip' INT, " +
+                          " 'extremumValue' INT, " +
+                          " 'asymptoteSlip' INT, " +
+                          " 'asymptoteValue' INT, " +
+                          " 'stiffness' INT, " +
+                          " 'pilotID' REFERENCES tblPilot(id) " +
+                          " );";
+        var result = cmd.ExecuteNonQuery();
+      }
+
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
         cmd.CommandText = "CREATE TABLE IF NOT EXISTS 'tblCar' ( " +
                           " 'id' INTEGER PRIMARY KEY AUTOINCREMENT, " +
                           " 'name' VARCHAR(30), " +

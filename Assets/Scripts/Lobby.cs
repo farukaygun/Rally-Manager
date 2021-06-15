@@ -36,6 +36,8 @@ public class Lobby : MonoBehaviour
   public Text textFixtureName;
   public Text textFixtureDate;
 
+  public Dropdown dropdownWheelType;
+
   public Loading loading;
 
   private void Start()
@@ -157,6 +159,7 @@ public class Lobby : MonoBehaviour
 
     beforeRaceTablePilots.SetActive(false);
     beforeRaceTableCars.SetActive(true);
+    dropdownWheelType.gameObject.SetActive(true);
 
     SetCarsToTable(beforeRaceRowCars);
   }
@@ -172,12 +175,19 @@ public class Lobby : MonoBehaviour
   void StartRace()
   {
     buttonStartRace.gameObject.SetActive(false);
+    dropdownWheelType.gameObject.SetActive(false);
     textFixtureId.gameObject.SetActive(false);
     textFixtureName.gameObject.SetActive(false);
     textFixtureDate.gameObject.SetActive(false);
 
     loading.gameObject.SetActive(true);
     loading.LoadLevel();
+  }
+
+  void GetWheelType()
+  {
+    Global.wheelType = dropdownWheelType.value;
+    Debug.Log(Global.wheelType);
   }
 
   private void OnEnable()
@@ -190,5 +200,6 @@ public class Lobby : MonoBehaviour
     playButton.onClick.AddListener(() => PlayMatch());
     buttonRepair.onClick.AddListener(() => CarFixShow());
     buttonStartRace.onClick.AddListener(() => StartRace());
+    dropdownWheelType.onValueChanged.AddListener(delegate { GetWheelType(); });
   }
 }
