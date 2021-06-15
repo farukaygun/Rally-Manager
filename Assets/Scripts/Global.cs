@@ -10,7 +10,7 @@ public class Global : MonoBehaviour
   public static string budget;
   public static Fixture currentFixture;
 
-  public static string currentPilotId;
+  public static string currentPilotId = "0";
   public static string currentCarId;
   public static int pilotScore;
   public static int point;
