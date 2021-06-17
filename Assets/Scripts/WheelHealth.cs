@@ -54,62 +54,132 @@ public class WheelHealth : MonoBehaviour
     {
       if (gameObject.name == "tireFrontL" || gameObject.name == "tireBackL")
       {
-        wheelHealth -= wheelErosion * (wheelCollider.steerAngle * 0.05f);
+        Global.wheelHealthLF -= wheelErosion * (wheelCollider.steerAngle * 0.05f);
+        Global.wheelHealthLB -= wheelErosion * (wheelCollider.steerAngle * 0.05f);
       }
     }
     else if (wheelCollider.steerAngle < 0)
     {
       if (gameObject.name == "tireFrontR" || gameObject.name == "tireBackR")
       {
-        wheelHealth -= wheelErosion * (-1 * wheelCollider.steerAngle * 0.05f);
+        Global.wheelHealthRB -= wheelErosion * (-1 * wheelCollider.steerAngle * 0.05f);
+        Global.wheelHealthRF -= wheelErosion * (-1 * wheelCollider.steerAngle * 0.05f);
       }
     }
   }
 
   public void EngineHealthCalculate()
   {
-    float engineErosion = (CarEngine.currentSpeed / wheelCollider.sidewaysFriction.extremumValue) / 1000;
+    float engineErosion = (CarEngine.currentSpeed / wheelCollider.sidewaysFriction.extremumValue) / 10000;
 
-    engineHealth -= engineErosion;
-    CarComponentErosion(engineHealth);
+    Global.engineHealth -= engineErosion;
+    CarComponentErosion("engine");
   }
 
   public void TurboHealthCalculate()
   {
-    float turboErosion = (CarEngine.currentSpeed / wheelCollider.sidewaysFriction.extremumValue) / 1000;
+    float turboErosion = (CarEngine.currentSpeed / wheelCollider.sidewaysFriction.extremumValue) / 9950;
 
-    turboHealth -= turboErosion;
-    CarComponentErosion(turboHealth);
+    Global.turboHealth -= turboErosion;
+    CarComponentErosion("turbo");
   }
 
   public void TransmissionCalculate()
   {
-    float transmissionErosion = (CarEngine.currentSpeed / wheelCollider.sidewaysFriction.extremumValue) / 1000;
+    float transmissionErosion = (CarEngine.currentSpeed / wheelCollider.sidewaysFriction.extremumValue) / 9850;
 
-    transmissionHealth -= transmissionErosion;
-    CarComponentErosion(transmissionHealth);
+    Global.transmissionHealth -= transmissionErosion;
+    CarComponentErosion("transmission");
   }
 
   public void FuelHealthCalculator()
   {
-    float fuelErosion = (CarEngine.currentSpeed / wheelCollider.sidewaysFriction.extremumValue) / 1000;
+    float fuelErosion = (CarEngine.currentSpeed / wheelCollider.sidewaysFriction.extremumValue) / 10100;
 
-    fuelHealth -= fuelErosion;
-    CarComponentErosion(fuelHealth);
+    Global.fuelHealth -= fuelErosion;
+    CarComponentErosion("fuel");
   }
 
-  void CarComponentErosion(float componentName)
+  void CarComponentErosion(string componentName)
   {
     RaycastHit hit;
     if (Physics.Raycast(transform.position, Vector3.down, out hit))
     {
       if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Icy"))
       {
-        componentName -= 15;
+        if (componentName == "engine")
+        {
+          Global.engineHealth -= CarEngine.currentSpeed / 19650;
+        }
+        else if (componentName == "turbo")
+        {
+          Global.turboHealth -= CarEngine.currentSpeed / 19700;
+        }
+        else if (componentName == "transmission")
+        {
+          Global.transmissionHealth -= CarEngine.currentSpeed / 19600;
+        }
+        else if (componentName == "fuel")
+        {
+          Global.fuelHealth -= CarEngine.currentSpeed / 19700;
+        }
       }
       else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Asphalt"))
       {
-        componentName -= CarEngine.currentSpeed / 2000;
+        if (componentName == "engine")
+        {
+          Global.engineHealth -= CarEngine.currentSpeed / 20000;
+        }
+        else if (componentName == "turbo")
+        {
+          Global.turboHealth -= CarEngine.currentSpeed / 20000;
+        }
+        else if (componentName == "transmission")
+        {
+          Global.transmissionHealth -= CarEngine.currentSpeed / 20000;
+        }
+        else if (componentName == "fuel")
+        {
+          Global.fuelHealth -= CarEngine.currentSpeed / 20000;
+        }
+      }
+      else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Soil"))
+      {
+        if (componentName == "engine")
+        {
+          Global.engineHealth -= CarEngine.currentSpeed / 19800;
+        }
+        else if (componentName == "turbo")
+        {
+          Global.turboHealth -= CarEngine.currentSpeed / 19600;
+        }
+        else if (componentName == "transmission")
+        {
+          Global.transmissionHealth -= CarEngine.currentSpeed / 19800;
+        }
+        else if (componentName == "fuel")
+        {
+          Global.fuelHealth -= CarEngine.currentSpeed / 19800;
+        }
+      }
+      else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Gravel"))
+      {
+        if (componentName == "engine")
+        {
+          Global.engineHealth -= CarEngine.currentSpeed / 19400;
+        }
+        else if (componentName == "turbo")
+        {
+          Global.turboHealth -= CarEngine.currentSpeed / 19400;
+        }
+        else if (componentName == "transmission")
+        {
+          Global.transmissionHealth -= CarEngine.currentSpeed / 19450;
+        }
+        else if (componentName == "fuel")
+        {
+          Global.fuelHealth -= CarEngine.currentSpeed / 19500;
+        }
       }
     }
   }

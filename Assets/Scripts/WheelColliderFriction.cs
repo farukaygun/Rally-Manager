@@ -60,6 +60,8 @@ public class WheelColliderFriction : MonoBehaviour
         _sidewaysFriction.stiffness = 0.9f;
 
         wheelCollider.sidewaysFriction = _sidewaysFriction;
+
+        Global.groundType = "Karlı Zemin";
       }
       else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Asphalt"))
       {
@@ -70,6 +72,32 @@ public class WheelColliderFriction : MonoBehaviour
         _sidewaysFriction.stiffness = 1f;
 
         wheelCollider.sidewaysFriction = _sidewaysFriction;
+
+        Global.groundType = "Asfalt Zemin";
+      }
+      else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Soil"))
+      {
+        _sidewaysFriction.extremumSlip = 0.35f;
+        _sidewaysFriction.extremumValue = 1.1f;
+        _sidewaysFriction.asymptoteSlip = 0.5f;
+        _sidewaysFriction.asymptoteValue = 0.75f;
+        _sidewaysFriction.stiffness = 1f;
+
+        wheelCollider.sidewaysFriction = _sidewaysFriction;
+
+        Global.groundType = "Toprak Zemin";
+      }
+      else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Gravel"))
+      {
+        _sidewaysFriction.extremumSlip = 0.25f;
+        _sidewaysFriction.extremumValue = 1.3f;
+        _sidewaysFriction.asymptoteSlip = 0.5f;
+        _sidewaysFriction.asymptoteValue = 0.75f;
+        _sidewaysFriction.stiffness = 1f;
+
+        wheelCollider.sidewaysFriction = _sidewaysFriction;
+
+        Global.groundType = "Çakıl Zemin";
       }
     }
   }

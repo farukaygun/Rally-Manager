@@ -7,14 +7,14 @@ public class Loading : MonoBehaviour
 {
   public Slider progressBar;
 
-  public void LoadLevel()
+  public void LoadLevel(int index)
   {
-    StartCoroutine(StartLoading());
+    StartCoroutine(StartLoading(index));
   }
 
-  IEnumerator StartLoading()
+  IEnumerator StartLoading(int index)
   {
-    AsyncOperation async = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+    AsyncOperation async = SceneManager.LoadSceneAsync(index);
 
     while (!async.isDone)
     {

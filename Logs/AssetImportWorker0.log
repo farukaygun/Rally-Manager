@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.11f1 (99c7afb366b3) revision 10078127'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Pro; OS build 19043.928; Version 2009; 64bit' Language: 'tr' Physical Memory: 16333 MB
+OS: 'Windows 10 Pro; OS build 19043.1052; Version 2009; 64bit' Language: 'tr' Physical Memory: 16333 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -15,11 +15,11 @@ C:/Users/Faruk/Desktop/Rally-Manager
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-62221
+58857
 Successfully changed project path to: C:/Users/Faruk/Desktop/Rally-Manager
 C:/Users/Faruk/Desktop/Rally-Manager
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 27.82 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 36.15 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path E:/Program Files/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
@@ -35,42 +35,100 @@ Initialize mono
 Mono path[0] = 'E:/Program Files/2020.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'E:/Program Files/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'E:/Program Files/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56308
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56140
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: E:/Program Files/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.001245 seconds.
+Registered in 0.001048 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 28.34 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 35.38 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.400 seconds
+- Completed reload, in  1.271 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.002846 seconds.
+Registered in 0.002831 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.42 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.40 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.079 seconds
+- Completed reload, in  0.780 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.11 seconds
-Refreshing native plugins compatible for Editor in 0.41 ms, found 1 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
+Refreshing native plugins compatible for Editor in 0.40 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1080 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 58.9 MB.
-System memory in use after: 58.9 MB.
+System memory in use before: 60.2 MB.
+System memory in use after: 60.3 MB.
 
 Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 1517.
-Total: 2.811000 ms (FindLiveObjects: 0.197500 ms CreateObjectMapping: 0.033700 ms MarkObjects: 2.435000 ms  DeleteObjects: 0.142200 ms)
+Total: 1.402100 ms (FindLiveObjects: 0.112400 ms CreateObjectMapping: 0.029800 ms MarkObjects: 1.179900 ms  DeleteObjects: 0.079000 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/Scripts/Lobby.cs
-  artifactKey: Guid(d1d3410afbbb7b344a197f00551c27f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Lobby.cs using Guid(d1d3410afbbb7b344a197f00551c27f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a069554716fac2e84d28c109bd164616') in 0.034903 seconds
-  Import took 0.038233 seconds .
+  path: Assets/StreamingAssets/rallyManagerData - Kopya (2).db
+  artifactKey: Guid(b2874d0aca9118649a403675bd3f8ef4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/StreamingAssets/rallyManagerData - Kopya (2).db using Guid(b2874d0aca9118649a403675bd3f8ef4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a6b24473849d6b1d5420213ab1a5f3f') in 0.029418 seconds
+  Import took 0.031462 seconds .
 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002611 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.40 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.723 seconds
+Platform modules already initialized, skipping
+Switching build target platform(19) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
+Refreshing native plugins compatible for Editor in 0.49 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1064 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 58.6 MB.
+System memory in use after: 58.7 MB.
+
+Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 1520.
+Total: 1.577400 ms (FindLiveObjects: 0.199900 ms CreateObjectMapping: 0.037800 ms MarkObjects: 1.323500 ms  DeleteObjects: 0.014900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 2.83 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 11 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 37.9 MB.
+System memory in use after: 38.0 MB.
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 1520.
+Total: 2.162100 ms (FindLiveObjects: 0.253800 ms CreateObjectMapping: 0.055400 ms MarkObjects: 1.827900 ms  DeleteObjects: 0.024100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002748 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.40 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.736 seconds
+Platform modules already initialized, skipping
+Switching build target platform(19) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
+Refreshing native plugins compatible for Editor in 0.40 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1064 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 58.6 MB.
+System memory in use after: 58.7 MB.
+
+Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 1523.
+Total: 1.906900 ms (FindLiveObjects: 0.144700 ms CreateObjectMapping: 0.025600 ms MarkObjects: 1.699900 ms  DeleteObjects: 0.035100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

@@ -72,7 +72,57 @@ public class DatabaseUpdate : MonoBehaviour
                           "WHERE id = @param2";
         cmd.CommandType = CommandType.Text;
         cmd.Parameters.Add(new SqliteParameter("@param1", budget));
-        cmd.Parameters.Add(new SqliteParameter("@param2", 1));
+        cmd.Parameters.Add(new SqliteParameter("@param2", 3));
+
+        var result = cmd.ExecuteReader();
+
+        Debug.Log("update schema: " + result);
+      }
+
+      conn.Close();
+    }
+  }
+
+  public static void UpdateFixtureStatus(string fixtureId, bool status)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "UPDATE 'tblFixture' " +
+                          "SET status = @param1 " +
+                          "WHERE id = @param2";
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("@param1", status));
+        cmd.Parameters.Add(new SqliteParameter("@param2", fixtureId));
+
+        var result = cmd.ExecuteReader();
+
+        Debug.Log("update schema: " + result);
+      }
+
+      conn.Close();
+    }
+  }
+
+  public static void UpdateLeagueStatus(string fixtureId, bool status)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "UPDATE 'tblLeagues' " +
+                          "SET status = @param1 " +
+                          "WHERE id = @param2";
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("@param1", status));
+        cmd.Parameters.Add(new SqliteParameter("@param2", fixtureId));
 
         var result = cmd.ExecuteReader();
 

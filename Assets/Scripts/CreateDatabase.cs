@@ -70,7 +70,6 @@ public class CreateDatabase : MonoBehaviour
                           " );";
         var result = cmd.ExecuteNonQuery();
       }
-
       
       using (var cmd = conn.CreateCommand())
       {
@@ -109,7 +108,6 @@ public class CreateDatabase : MonoBehaviour
         var result = cmd.ExecuteNonQuery();
       }
 
-      
       using (var cmd = conn.CreateCommand())
       {
         cmd.CommandType = CommandType.Text;
@@ -163,6 +161,43 @@ public class CreateDatabase : MonoBehaviour
                           " 'name' VARCHAR(30), " +
                           " 'date' VARCHAR(20), " +
                           " 'status' BOOLEAN " +
+                          " );";
+        var result = cmd.ExecuteNonQuery();
+      }
+
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "CREATE TABLE IF NOT EXISTS 'tblScoreBoard' ( " +
+                          " 'id' INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                          " 'score' INT, " +
+                          " 'time' TEXT, " +
+                          " 'pilotId' REFERENCES tblPilot(id), " +
+                          " 'teamId' REFERENCES tblTeam(id), " +
+                          " 'fixtureId' REFERENCES tblFixture(id), " +
+                          " 'leagueId' REFERENCES tblLeagues(id), " + 
+                          " 'seasonId' REFERENCES tblSeason(id) " +
+                          " );";
+        var result = cmd.ExecuteNonQuery();
+      }
+
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "CREATE TABLE IF NOT EXISTS 'tblLeagues' ( " +
+                          " 'id' INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                          " 'name' TEXT, " +
+                          " 'status' BOOLEAN " +
+                          " );";
+        var result = cmd.ExecuteNonQuery();
+      }
+
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "CREATE TABLE IF NOT EXISTS 'tblSeason' ( " +
+                          " 'id' INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                          " 'name' TEXT " +
                           " );";
         var result = cmd.ExecuteNonQuery();
       }

@@ -58,7 +58,7 @@ public class PilotTransfer : MonoBehaviour
     Global.budget = (int.Parse(Global.budget) - salary).ToString();
 
     DatabaseUpdate.UpdateManagerTeamBudget(Global.budget); 
-    DatabaseUpdate.UpdateManagerTeamPilot("1", id); 
+    DatabaseUpdate.UpdateManagerTeamPilot("3", id); 
 
     textBudget.text = "Bütçe: $" + Global.budget;
 

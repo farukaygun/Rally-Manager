@@ -30,7 +30,10 @@ public class CarBuy : MonoBehaviour
   void BuyCar(int id, int price, GameObject row)
   {
     Global.budget = (int.Parse(Global.budget) - price).ToString();
-    DatabaseUpdate.UpdateManagerTeamCar("1", id);
+
+    DatabaseUpdate.UpdateManagerTeamBudget(Global.budget);
+    DatabaseUpdate.UpdateManagerTeamCar("3", id);
+
     textBudget.text = "Bütçe: $" + Global.budget;
     carRow1.transform.Find("Button (1)").GetComponent<Button>().enabled = false;
   }

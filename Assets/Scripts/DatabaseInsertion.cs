@@ -251,4 +251,83 @@ public class DatabaseInsertion : MonoBehaviour
       conn.Close();
     }
   }
+
+  public static void InsertTotblScoreBoard(int score, string time, int pilotId, int teamId, int fixtureId, int leagueId, int seasonId)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "INSERT INTO 'tblScoreBoard' (score, time, pilotId, teamId, fixtureId, leagueId, seasonId) VALUES " +
+                                                          "(@param1, @param2, @param3, @param4, @param5, @param6, @param7)";
+
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("@param1", score));
+        cmd.Parameters.Add(new SqliteParameter("@param2", time));
+        cmd.Parameters.Add(new SqliteParameter("@param3", pilotId));
+        cmd.Parameters.Add(new SqliteParameter("@param4", teamId));
+        cmd.Parameters.Add(new SqliteParameter("@param5", fixtureId));
+        cmd.Parameters.Add(new SqliteParameter("@param6", leagueId));
+        cmd.Parameters.Add(new SqliteParameter("@param7", seasonId));
+
+
+        var result = cmd.ExecuteReader();
+
+        Debug.Log("insert schema: " + result);
+      }
+
+      conn.Close();
+    }
+  }
+
+  public static void InsertTotblLeagues(string name, bool status)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "INSERT INTO 'tblLeagues' (name, status) VALUES " +
+                                                    "(@param1, @param2)";
+
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("@param1", name));
+        cmd.Parameters.Add(new SqliteParameter("@param2", status));
+
+        var result = cmd.ExecuteReader();
+
+        Debug.Log("insert schema: " + result);
+      }
+
+      conn.Close();
+    }
+  }
+
+  public static void InsertTotblSeason(string name)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "INSERT INTO 'tblSeason' (name) VALUES (@param1)";
+
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("@param1", name));
+
+        var result = cmd.ExecuteReader();
+
+        Debug.Log("insert schema: " + result);
+      }
+
+      conn.Close();
+    }
+  }
 }

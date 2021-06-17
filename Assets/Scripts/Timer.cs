@@ -7,8 +7,8 @@ public class Timer : MonoBehaviour
 {
   public float timeRemaining = 3;
   public bool timerIsRunning = false;
+  
   public Text textCountDown;
-
   private void Start()
   {
     // Starts the timer automatically
@@ -16,7 +16,7 @@ public class Timer : MonoBehaviour
     CarEngine.maxSpeed = 0;
   }
 
-  void Update()
+  void FixedUpdate()
   {
     if (timerIsRunning)
     {
@@ -31,6 +31,8 @@ public class Timer : MonoBehaviour
         timerIsRunning = false;
         CarEngine.maxSpeed = 100;
         textCountDown.gameObject.SetActive(false);
+
+        Race.StartStopwatch();
       }
     }
   }
@@ -40,7 +42,6 @@ public class Timer : MonoBehaviour
     timeToDisplay += 1;
 
     float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-
     textCountDown.text = seconds.ToString();
   }
 }

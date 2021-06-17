@@ -99,19 +99,19 @@ MonoBehaviour:
   followHeight: 5
   followDistance: 5
   followHeightSpeed: 0.5
---- !u!114 &66637247
+--- !u!114 &1443685132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9197827224321574665}
+  m_GameObject: {fileID: 410718385095841241}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b01c3ff8dbcdc6b4f96028f55b73f562, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a3afe4bcaf7f3e4da091dcec15d3a44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drivingTypeDropdown: {fileID: 0}
+  targetWheel: {fileID: 8314866405381319077}
 --- !u!114 &2100182428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,26 +151,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetWheel: {fileID: 8314866406674101853}
---- !u!114 &1443685132
+--- !u!114 &1826023762
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410718385095841241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a3afe4bcaf7f3e4da091dcec15d3a44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetWheel: {fileID: 8314866405381319077}
---- !u!114 &1270988304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8314866405827571480}
+  m_GameObject: {fileID: 8314866405381319075}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 040dd0e87a651e344b737eb01d74ef25, type: 3}
@@ -187,41 +174,40 @@ MonoBehaviour:
   transmissionRepairToggle: {fileID: 0}
   fuelRepairToggle: {fileID: 0}
   repairButton: {fileID: 0}
---- !u!114 &1270988305
+--- !u!114 &1826023763
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8314866405827571480}
+  m_GameObject: {fileID: 8314866405381319075}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b4cabe0ffb673f4c9f98d4f790c7c39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1270988306
+--- !u!114 &1826023764
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8314866405827571480}
+  m_GameObject: {fileID: 8314866405381319075}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27c5a386888a0d342a4ae24287765d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pilotController: {fileID: 1270988305}
-  wheelHealth: {fileID: 1270988304}
-  carController: {fileID: 0}
+  pilotController: {fileID: 1826023763}
+  wheelHealth: {fileID: 1826023762}
   wheelTypeController: {fileID: 0}
---- !u!114 &5802400203616791829
+--- !u!114 &8174094664379300402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8314866405827571480}
+  m_GameObject: {fileID: 8314866405381319075}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90dd0e1f101a35141b2b9fa4cbe74a40, type: 3}
@@ -277,7 +263,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pilotController: {fileID: 440027296}
   wheelHealth: {fileID: 440027295}
-  carController: {fileID: 0}
   wheelTypeController: {fileID: 0}
 --- !u!114 &998269980918659799
 MonoBehaviour:
@@ -286,6 +271,69 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8314866405785209322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90dd0e1f101a35141b2b9fa4cbe74a40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  road: {fileID: 0}
+--- !u!114 &1270988304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8314866405827571480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 040dd0e87a651e344b737eb01d74ef25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheelHealth: 100
+  engineHealth: 100
+  turboHealth: 100
+  transmissionHealth: 100
+  fuelHealth: 100
+  wheelRepairToggle: {fileID: 0}
+  engineRepairToggle: {fileID: 0}
+  turboRepairToggle: {fileID: 0}
+  transmissionRepairToggle: {fileID: 0}
+  fuelRepairToggle: {fileID: 0}
+  repairButton: {fileID: 0}
+--- !u!114 &1270988305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8314866405827571480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4cabe0ffb673f4c9f98d4f790c7c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1270988306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8314866405827571480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c5a386888a0d342a4ae24287765d7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pilotController: {fileID: 1270988305}
+  wheelHealth: {fileID: 1270988304}
+  wheelTypeController: {fileID: 0}
+--- !u!114 &5802400203616791829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8314866405827571480}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90dd0e1f101a35141b2b9fa4cbe74a40, type: 3}
@@ -341,7 +389,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pilotController: {fileID: 649463904}
   wheelHealth: {fileID: 649463903}
-  carController: {fileID: 0}
   wheelTypeController: {fileID: 0}
 --- !u!114 &5823909747781919493
 MonoBehaviour:
@@ -356,70 +403,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   road: {fileID: 0}
---- !u!114 &1826023762
+--- !u!114 &66637247
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8314866405381319075}
+  m_GameObject: {fileID: 9197827224321574665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 040dd0e87a651e344b737eb01d74ef25, type: 3}
+  m_Script: {fileID: 11500000, guid: b01c3ff8dbcdc6b4f96028f55b73f562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelHealth: 100
-  engineHealth: 100
-  turboHealth: 100
-  transmissionHealth: 100
-  fuelHealth: 100
-  wheelRepairToggle: {fileID: 0}
-  engineRepairToggle: {fileID: 0}
-  turboRepairToggle: {fileID: 0}
-  transmissionRepairToggle: {fileID: 0}
-  fuelRepairToggle: {fileID: 0}
-  repairButton: {fileID: 0}
---- !u!114 &1826023763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8314866405381319075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b4cabe0ffb673f4c9f98d4f790c7c39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1826023764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8314866405381319075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27c5a386888a0d342a4ae24287765d7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pilotController: {fileID: 1826023763}
-  wheelHealth: {fileID: 1826023762}
-  carController: {fileID: 0}
-  wheelTypeController: {fileID: 0}
---- !u!114 &8174094664379300402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8314866405381319075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90dd0e1f101a35141b2b9fa4cbe74a40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  road: {fileID: 0}
+  drivingTypeDropdown: {fileID: 0}
 --- !u!1001 &7583141945889938707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -537,11 +533,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2148873295129788576, guid: 55f56d4088f13644a97c55b3e694ba52, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.3
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 2148873295129788576, guid: 55f56d4088f13644a97c55b3e694ba52, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -66
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 2148873295129788576, guid: 55f56d4088f13644a97c55b3e694ba52, type: 3}
       propertyPath: m_LocalRotation.w

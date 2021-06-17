@@ -96,7 +96,7 @@ public class DatabaseSelection : MonoBehaviour
         cmd.CommandType = CommandType.Text;
         cmd.CommandText = "SELECT budget FROM 'tblTeam' WHERE id = @param1";
         cmd.CommandType = CommandType.Text;
-        cmd.Parameters.Add(new SqliteParameter("@param1", "1"));
+        cmd.Parameters.Add(new SqliteParameter("@param1", "3"));
 
         result = cmd.ExecuteReader();
 
@@ -105,7 +105,7 @@ public class DatabaseSelection : MonoBehaviour
       var stringResult = result.GetValue(0).ToString();
 
       conn.Close();
-      Debug.Log(stringResult + "aloooooo");
+
       return stringResult;
     }
   }
@@ -122,7 +122,7 @@ public class DatabaseSelection : MonoBehaviour
         cmd.CommandType = CommandType.Text;
         cmd.CommandText = "SELECT * FROM 'tblPilot' WHERE teamID = @param1";
         cmd.CommandType = CommandType.Text;
-        cmd.Parameters.Add(new SqliteParameter("@param1", "1"));
+        cmd.Parameters.Add(new SqliteParameter("@param1", "3"));
 
         var result = cmd.ExecuteReader();
 
@@ -135,7 +135,8 @@ public class DatabaseSelection : MonoBehaviour
             age = result.GetValue(2).ToString(),
             abilityPoint = result.GetValue(3).ToString(),
             potantial = result.GetValue(4).ToString(),
-            salary = result.GetValue(5).ToString()
+            salary = result.GetValue(5).ToString(),
+            teamID = result.GetValue(6).ToString()
           };
 
           pilots.Add(pilot);
@@ -223,7 +224,7 @@ public class DatabaseSelection : MonoBehaviour
         cmd.CommandType = CommandType.Text;
         cmd.CommandText = "SELECT * FROM 'tblCar' WHERE teamID = @param1";
         cmd.CommandType = CommandType.Text;
-        cmd.Parameters.Add(new SqliteParameter("@param1", "1"));
+        cmd.Parameters.Add(new SqliteParameter("@param1", "3"));
 
         var result = cmd.ExecuteReader();
 
@@ -274,7 +275,6 @@ public class DatabaseSelection : MonoBehaviour
   //   }
   // }
 
-// Select * from tblPilot WHERE teamID IS NULL ORDER BY id asc LIMIT 1
   public static Fixture SelectFromFixture(bool isDone)
   {
     using (var conn = new SqliteConnection(conString))
@@ -298,12 +298,234 @@ public class DatabaseSelection : MonoBehaviour
           date = result.GetValue(2).ToString(),
           status = bool.Parse(result.GetValue(3).ToString())
         };
-
+        Debug.Log("fixture: " + fixture.id + " " + fixture.name + " " + fixture.date);
         Debug.Log("select schema: " + result.Read());
       }
       conn.Close();
       
       return fixture;
+    }
+  }
+
+  public static List<ScoreBoard> SelectCurrentPilotScoreBoardFromtblScoreBoard(int currentFixtureId)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      List<ScoreBoard> scoreBoard = new List<ScoreBoard>();
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "SELECT t.name as TakýmAdý,p.name as PilotAdý,score,time FROM " + 
+                          "tblScoreBoard sb inner join tblPilot p ON sb.pilotId=p.id " + 
+                          "INNER JOIN tblTeam t ON sb.teamId=t.id " +
+                          "WHERE fixtureId = @param1";
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("param1", currentFixtureId));
+
+        var result = cmd.ExecuteReader();
+
+        while (result.Read())
+        {
+          var item = new ScoreBoard
+          {
+            teamName = result.GetValue(0).ToString(),
+            pilotName = result.GetValue(1).ToString(),
+            point = result.GetValue(2).ToString(),
+            time = result.GetValue(3).ToString()
+          };
+
+          scoreBoard.Add(item);
+        }
+
+        Debug.Log("select schema: " + result.Read());
+      }
+      conn.Close();
+
+      return scoreBoard;
+    }
+  }
+
+  public static List<ScoreBoard> SelectCurrentTeamScoreBoardFromtblScoreBoard(int currentFixtureId)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      List<ScoreBoard> scoreBoard = new List<ScoreBoard>();
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "SELECT t.name AS TakýmAdý, sum(score) AS ToplamPuan " +
+                          "FROM tblScoreBoard sb " +
+                          "INNER JOIN tblTeam t ON sb.teamId = t.id " +
+                          "WHERE fixtureId = @param1  " +
+                          "GROUP BY teamId " +
+                          "ORDER BY ToplamPuan DESC";
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("param1", currentFixtureId));
+
+        var result = cmd.ExecuteReader();
+
+        while (result.Read())
+        {
+          var item = new ScoreBoard
+          {
+            teamName = result.GetValue(0).ToString(),
+            point = result.GetValue(1).ToString(),
+          };
+
+          scoreBoard.Add(item);
+        }
+
+        Debug.Log("select schema: " + result.Read());
+      }
+      conn.Close();
+
+      return scoreBoard;
+    }
+  }
+
+  public static List<ScoreBoard> SelectTeamScoreBoardFromtblScoreBoard(int id)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      List<ScoreBoard> scoreBoard = new List<ScoreBoard>();
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "SELECT  t.name as TakýmAdý, sum(score) as ToplamPuan " +
+                          "FROM tblScoreBoard sb " +
+                          "INNER JOIN tblTeam t on sb.teamId=t.id " +
+                          "INNER JOIN tblLeagues l ON sb.leagueId = l.id " +
+                          "INNER JOIN tblSeason s ON sb.seasonId = s.id " +
+                          "WHERE s.id = @param1 " +
+                          "GROUP BY teamId " +
+                          "ORDER BY (sum(score)) DESC";
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("param1", id));
+
+        var result = cmd.ExecuteReader();
+
+        while (result.Read())
+        {
+          var item = new ScoreBoard
+          {
+            teamName = result.GetValue(0).ToString(),
+            point = result.GetValue(1).ToString(),
+          };
+
+          scoreBoard.Add(item);
+        }
+
+        Debug.Log("select schema: " + result.Read());
+      }
+      conn.Close();
+
+      return scoreBoard;
+    }
+  }
+
+  public static List<ScoreBoard> SelectPilotScoreBoardFromtblScoreBoard(int id)
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      List<ScoreBoard> scoreBoard = new List<ScoreBoard>();
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "SELECT t.name, p.name as PilotAdý, sum(score) " +
+                          "FROM tblScoreBoard sb " +
+                          "INNER JOIN tblPilot p ON sb.pilotId=p.id " +
+                          "INNER JOIN tblTeam t ON sb.teamId=t.id " +
+                          "INNER JOIN tblLeagues l ON sb.leagueId = l.id " +
+                          "INNER JOIN tblSeason s ON sb.seasonId = s.id " +
+                          "WHERE s.id = @param1 " +
+                          "GROUP BY sb.pilotId " +
+                          "ORDER BY sum(score) DESC";
+        cmd.CommandType = CommandType.Text;
+        cmd.Parameters.Add(new SqliteParameter("param1", id));
+
+        var result = cmd.ExecuteReader();
+
+        while (result.Read())
+        {
+          var item = new ScoreBoard
+          {
+            teamName = result.GetValue(0).ToString(),
+            pilotName = result.GetValue(1).ToString(),
+            point = result.GetValue(2).ToString() 
+          };
+
+          scoreBoard.Add(item);
+        }
+
+        Debug.Log("select schema: " + result.Read());
+      }
+      conn.Close();
+
+      return scoreBoard;
+    }
+  }
+
+
+  public static League SelectFromTblLeagues()
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      League league;
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "SELECT * FROM 'tblLeagues' WHERE status = true";
+        cmd.CommandType = CommandType.Text;
+
+        var result = cmd.ExecuteReader();
+
+        league = new League
+        {
+          id = result.GetValue(0).ToString(),
+          name = result.GetValue(1).ToString(),
+          status = result.GetValue(2).ToString()
+        };
+
+        Debug.Log("select schema: " + result.Read());
+      }
+      conn.Close();
+
+      return league;
+    }
+  }
+
+  public static string SelectFromTblSeason()
+  {
+    using (var conn = new SqliteConnection(conString))
+    {
+      conn.Open();
+
+      string season;
+      using (var cmd = conn.CreateCommand())
+      {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = "SELECT * FROM 'tblSeason' ORDER BY id DESC LIMIT 1";
+        cmd.CommandType = CommandType.Text;
+
+        var result = cmd.ExecuteReader();
+        season = result.GetValue(0).ToString();
+
+
+        Debug.Log("select schema: " + result.Read());
+      }
+      conn.Close();
+
+      return season;
     }
   }
 }
@@ -316,6 +538,7 @@ public struct Pilot
   public string abilityPoint { get; set; }
   public string potantial { get; set; }
   public string salary { get; set; }
+  public string teamID { get; set; }
 }
 
 public struct Car
@@ -338,11 +561,11 @@ public struct Fixture
 
 public struct PilotSpecs
 {
-  public int extremumSlip { get; set; }
-  public int extremumValue { get; set; }
-  public int asymptoteSlip { get; set; }
-  public int asymptoteValue { get; set; }
-  public int stiffness { get; set; }
+  public float extremumSlip { get; set; }
+  public float extremumValue { get; set; }
+  public float asymptoteSlip { get; set; }
+  public float asymptoteValue { get; set; }
+  public float stiffness { get; set; }
 }
 
 public struct CarSpecs
@@ -351,4 +574,19 @@ public struct CarSpecs
   public int mass { get; set; }
   public int suspansionDistance { get; set; }
   public int horsePower { get; set; }
+}
+
+public struct ScoreBoard
+{
+  public string teamName { get; set; }
+  public string pilotName { get; set; }
+  public string time { get; set; }
+  public string point { get; set; }
+}
+
+public struct League
+{
+  public string id { get; set; }
+  public string name { get; set; }
+  public string status { get; set; }
 }
